@@ -136,16 +136,15 @@
                                   <option value="10">Большой пакет</option>
                               </select>
                           </div>
-                          <div id="propertyContainer" class="form-group" style="display: none;">
-                              <label><input type="checkbox" id="property"> Доставка на дом</label>
-                          </div>
-                          <div class="form-group">
-                              <label for="serviceQuantity">Количество:</label>
-                              <input type="number" id="serviceQuantity" class="form-control" min="1" required>
-                          </div>
-                      </form>
-                      <h3 class="mt-4">Общая стоимость: <span id="totalCost">0</span> руб.</h3>
-                  </div>
+                <div id="propertyContainer" class="form-group" style="display: none;">
+                    <label><input type="checkbox" id="property"> Доставка ( 500 руб.)</label>
+                </div>
+               
+            </form>
+            
+            <button type="button" class="btn btn-primary" onclick="calculateTotalCost()">Подсчитать общую стоимость</button>
+            <h3 class="mt-4">Общая стоимость: <span id="totalCost">0</span> руб.</h3>
+        </div>
                   <br /><br /><br />
 
                   <table>
@@ -287,64 +286,61 @@
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <script>
-          function updateServiceOptions() {
-              const serviceType = document.querySelector('input[name="serviceType"]:checked').value;
-              const optionsContainer = document.getElementById('optionsContainer');
-              const propertyContainer = document.getElementById('propertyContainer');
-
-              if (serviceType === "1") {
-                  optionsContainer.style.display = "none";
-                  propertyContainer.style.display = "none";
-              } else if (serviceType === "2") {
-                  optionsContainer.style.display = "block";
-                  propertyContainer.style.display = "none";
-              } else if (serviceType === "3") {
-                  optionsContainer.style.display = "none";
-                  propertyContainer.style.display = "block";
-              }
-          }
-
-          function calculateTotalCost() {
-              // Расчет стоимости товара
-              const productSelect = document.getElementById('product');
-              const productPrice = parseFloat(productSelect.value);
-              const quantityInput = document.getElementById('quantity');
-              const productQuantity = parseInt(quantityInput.value);
-              let totalProductCost = 0;
-
-              if (productPrice > 0 && productQuantity > 0) {
-                  totalProductCost = productPrice * productQuantity;
-              }
-
-              // Расчет стоимости услуги
-              const serviceType = document.querySelector('input[name="serviceType"]:checked').value;
-              const serviceQuantity = parseInt(document.getElementById('serviceQuantity').value);
-              let baseServicePrice = 0;
-              let totalServiceCost = 0;
-
-            
-
-              if (serviceType === "2") {
-                  const optionSelect = document.getElementById('options');
-                  const optionPrice = parseFloat(optionSelect.value);
-                  if (optionPrice > 0) {
-                      baseServicePrice += optionPrice;
-                  }
-              } else if (serviceType === "3") {
-                  const propertyChecked = document.getElementById('property').checked;
-                  if (propertyChecked) {
-                      baseServicePrice += 300; // Добавляем стоимость свойства
-                  }
-              }
-              if (serviceQuantity > 0) {
-                  totalServiceCost = baseServicePrice * Math.abs(serviceQuantity);
-              }
-
-              // Общая стоимость
-              const totalCost = totalProductCost + totalServiceCost;
-              document.getElementById('totalCost').textContent = totalCost;
-          }
-      </script>
+            function updateServiceOptions() {
+                const serviceType = document.querySelector('input[name="serviceType"]:checked').value;
+                const optionsContainer = document.getElementById('optionsContainer');
+                const propertyContainer = document.getElementById('propertyContainer');
+    
+                if (serviceType === "1") {
+                    optionsContainer.style.display = "none";
+                    propertyContainer.style.display = "none";
+                } else if (serviceType === "2") {
+                    optionsContainer.style.display = "block";
+                    propertyContainer.style.display = "none";
+                } else if (serviceType === "3") {
+                    optionsContainer.style.display = "none";
+                    propertyContainer.style.display = "block";
+                }
+            }
+    
+            function calculateTotalCost() {
+                // Расчет стоимости товара
+                const productSelect = document.getElementById('product');
+                const productPrice = parseFloat(productSelect.value);
+                const quantityInput = document.getElementById('quantity');
+                const productQuantity = parseInt(quantityInput.value);
+                let totalProductCost = 0;
+    		
+                if (productPrice > 0 && productQuantity > 0) {
+                    totalProductCost = productPrice * productQuantity;
+                }
+    
+                // Расчет стоимости услуги
+                const serviceType = document.querySelector('input[name="serviceType"]:checked').value;
+                const serviceQuantity = 1;
+                let baseServicePrice = 0; // Базовая цена для всех услуг
+                let totalServiceCost = 0;
+    
+                if (serviceType === "2") {
+                    const optionSelect = document.getElementById('options');
+                    const optionPrice = parseFloat(optionSelect.value);
+                    if (optionPrice > 0 ) {
+                        baseServicePrice += optionPrice;
+                    }
+                } else if (serviceType === "3") {
+                    const propertyChecked = document.getElementById('property').checked;
+                    if (propertyChecked) {
+                        baseServicePrice += 500; // Добавляем стоимость свойства
+                    }
+                }
+    
+                totalServiceCost = baseServicePrice * 1;
+    
+                // Общая стоимость
+                const totalCost = totalProductCost + totalServiceCost;
+                document.getElementById('totalCost').textContent = totalCost;
+            }
+        </script>
   </body>
 
 </html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
