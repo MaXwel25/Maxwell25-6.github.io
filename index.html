@@ -130,19 +130,19 @@
                           </div>
                           <div id="optionsContainer" class="form-group" min="1" required: style="display: none;">
                               <label for="options">Выберите опцию:</label>
-                              <select id="options" class="form-control">
+                              <select id="options" class="form-control" onchange="calculateTotalCost()">
                                   <option value="0">-- Выберите опцию --</option>
                                   <option value="5">Маленькеий пакет</option>
                                   <option value="10">Большой пакет</option>
                               </select>
                           </div>
                 <div id="propertyContainer" class="form-group" style="display: none;">
-                    <label><input type="checkbox" id="property"> Доставка ( 500 руб.)</label>
+                    <label><input type="checkbox" id="property" onchange="calculateTotalCost()"> Доставка ( 500 руб.)</label>
                 </div>
                
             </form>
             
-            <button type="button" class="btn btn-primary" onclick="calculateTotalCost()">Подсчитать общую стоимость</button>
+            
             <h3 class="mt-4">Общая стоимость: <span id="totalCost">0</span> руб.</h3>
         </div>
                   <br /><br /><br />
